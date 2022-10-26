@@ -1,3 +1,17 @@
+<?php include "env.php";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password =  sha1($_POST['password']);
+    $stmt = $con->prepare("SELECT * FROM  `users` WHERE `username`=? AND `password`=?");
+    $stmt->execute(array($username, $password));
+    $user = $stmt->fetch();
+    echo "<pre>";
+    print_r($user);
+    echo "</pre>";
+}
+
+
+?>
 <!doctype html>
 <html lang="en">
 
@@ -10,14 +24,14 @@
 
 <body>
     <div class="container">
-        <form>
+        <form method="post" action="<?php $_SERVER['PHP_SELF'] ?>">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">username</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="username">
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <input type="password" class="form-control" name="password">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

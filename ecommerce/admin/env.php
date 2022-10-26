@@ -7,7 +7,7 @@ try{
     $user = 'root' ;
     $pass = '' ;
     $con = new PDO($db , $user, $pass);
-    echo "connect" ;
+    // echo "connect" ;
     
 }catch(PDOException $e){
     echo $e->getMessage() ;
